@@ -1,0 +1,493 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MyBlog - Article</title>
+
+    <link rel="stylesheet" href="we.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+    <div class="logo">
+     <i class="fa-solid fa-book-open"></i>
+            MyBlog
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+        <a href="web.html">
+            Home
+        </a>
+        </li>
+
+        <li>
+    <a href="about.html">
+        About
+     </a>
+    </li>
+
+    <li>
+    <a href="categories.html">
+        Categories
+    </a>
+    </li>
+
+    <li>
+    <a href="contact.html">
+        Contact
+    </a>
+    </li>
+
+    <li>
+    <a href="admin-login.html">
+      <i class="fa-solid fa-user-shield"></i>
+         Admin
+    </a>
+    </li>
+
+</ul>
+
+<button
+                id="darkBtn"
+                type="button"
+                aria-label="Toggle Dark Mode">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+        </nav>
+
+    </header>
+    <main>
+
+        <article class="article-page" id="articlePage">
+
+            <div class="article-loading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <p>
+                    Loading article...
+                </p>
+
+            </div>
+
+        </article>
+
+        <section class="article-share">
+
+            <h2>
+                Share This Article
+            </h2>
+
+            <div class="share-buttons">
+
+                <a
+                    href="#"
+                    id="facebookShare"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Share on Facebook">
+
+                    <i class="fab fa-facebook-f"></i>
+
+                </a>
+
+                <a
+                    href="#"
+                    id="twitterShare"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Share on Twitter">
+
+                    <i class="fab fa-x-twitter"></i>
+
+                </a>
+
+                <a
+                    href="#"
+                    id="linkedinShare"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Share on LinkedIn">
+
+                    <i class="fab fa-linkedin-in"></i>
+
+                </a>
+
+                <a
+                    href="#"
+                    id="whatsappShare"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Share on WhatsApp">
+
+                    <i class="fab fa-whatsapp"></i>
+
+                </a>
+
+            </div>
+
+        </section>
+        <section class="comments">
+
+            <h2>
+                Leave a Comment
+            </h2>
+
+            <div class="comment-box">
+
+                <form id="commentForm">
+
+                    <input
+                        type="text"
+                        id="commentName"
+                        placeholder="Your Name"
+                        required>
+
+                    <textarea
+                        id="commentText"
+                        placeholder="Write your comment..."
+                        required></textarea>
+
+                    <button type="submit">
+                        Post Comment
+                    </button>
+
+                </form>
+
+                <div
+                    id="commentMessage"
+                    style="display:none; margin-top:15px;">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-box">
+
+                <h3>
+                    MyBlog
+                </h3>
+
+                <p>
+                    We share informative and interesting
+                    articles about technology, education,
+                    travel, programming, health and lifestyle.
+                </p>
+
+            </div>
+
+
+            <div class="footer-box">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <a href="web.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="categories.html">
+                            Categories
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="contact.html">
+                            Contact
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="admin-login.html">
+                            <i class="fa-solid fa-user-shield"></i>
+                            Admin
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="footer-box">
+
+                <h3>
+                    Follow Us
+                </h3>
+
+                <div class="social-icons">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Facebook">
+
+                        <i class="fab fa-facebook-f"></i>
+
+                    </a>
+
+                    <a
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Instagram">
+
+                        <i class="fab fa-instagram"></i>
+
+                    </a>
+
+                    <a
+                        href="https://twitter.com/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Twitter">
+
+                        <i class="fab fa-twitter"></i>
+
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="LinkedIn">
+
+                        <i class="fab fa-linkedin-in"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 MyBlog | All Rights Reserved
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="we.js"></script>
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                setupArticleSharing();
+
+                setupComments();
+
+            }
+        );
+
+        function setupArticleSharing() {
+
+            const currentUrl =
+                window.location.href;
+
+            const encodedUrl =
+                encodeURIComponent(currentUrl);
+
+
+            const titleElement =
+                document.querySelector(".article-title");
+
+
+            const articleTitle =
+                titleElement
+                    ? titleElement.textContent.trim()
+                    : "MyBlog Article";
+
+
+            const encodedTitle =
+                encodeURIComponent(articleTitle);
+
+
+            const facebook =
+                document.getElementById(
+                    "facebookShare"
+                );
+
+
+            const twitter =
+                document.getElementById(
+                    "twitterShare"
+                );
+
+
+            const linkedin =
+                document.getElementById(
+                    "linkedinShare"
+                );
+
+
+            const whatsapp =
+                document.getElementById(
+                    "whatsappShare"
+                );
+
+
+            if (facebook) {
+
+                facebook.href =
+                    "https://www.facebook.com/sharer/sharer.php?u=" +
+                    encodedUrl;
+
+            }
+
+
+            if (twitter) {
+
+                twitter.href =
+                    "https://twitter.com/intent/tweet?url=" +
+                    encodedUrl +
+                    "&text=" +
+                    encodedTitle;
+
+            }
+
+
+            if (linkedin) {
+
+                linkedin.href =
+                    "https://www.linkedin.com/sharing/share-offsite/?url=" +
+                    encodedUrl;
+
+            }
+
+
+            if (whatsapp) {
+
+                whatsapp.href =
+                    "https://api.whatsapp.com/send?text=" +
+                    encodedTitle +
+                    "%20" +
+                    encodedUrl;
+
+            }
+
+        }
+
+
+        /*
+         * Simple comment form
+         */
+
+        function setupComments() {
+
+            const form =
+                document.getElementById(
+                    "commentForm"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "commentMessage"
+                );
+
+
+            if (!form || !message) {
+                return;
+            }
+
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const name =
+                        document.getElementById(
+                            "commentName"
+                        ).value.trim();
+
+
+                    const comment =
+                        document.getElementById(
+                            "commentText"
+                        ).value.trim();
+
+
+                    if (!name || !comment) {
+
+                        message.textContent =
+                            "Please fill all fields.";
+
+                        message.style.display =
+                            "block";
+
+                        return;
+
+                    }
+
+
+                    message.textContent =
+                        "Thank you, " +
+                        name +
+                        "! Your comment has been submitted.";
+
+
+                    message.style.display =
+                        "block";
+
+
+                    form.reset();
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
