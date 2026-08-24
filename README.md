@@ -29,7 +29,7 @@ The website is designed to provide a clean and user-friendly experience across d
 Responsive-Web-Design/
 Responsive-Web-Design/
 │
-├── web.html
+├── index.html
 ├── article.html
 ├── add-article.html
 ├── admin-login.html
