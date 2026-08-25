@@ -4,7 +4,7 @@ const EDIT_KEY = "editArticleId";
 const DELETED_KEY = "myBlogDeletedArticleIds";
 const DARK_MODE_KEY = "myBlogDarkMode";
 const DATA_VERSION_KEY = "myBlogDataVersion";
-const CURRENT_DATA_VERSION = "2026-08-25-readmore-v2";
+const CURRENT_DATA_VERSION = "2026-08-25-full-content-v3";
 const defaultArticles = [
 
     {
@@ -16,11 +16,13 @@ const defaultArticles = [
         description:
             "Learning HTML, CSS and JavaScript helps you build professional websites.",
         content:
-`Web development is one of the fastest growing fields in technology.
+`Web development is one of the fastest growing fields in the technology world. Every website that we use today is created using HTML, CSS and JavaScript. These three technologies are the foundation of modern websites.
 
-HTML creates the structure of a webpage. CSS makes websites attractive, responsive and user-friendly. JavaScript adds functionality and makes websites interactive.
+HTML is used to create the structure of a webpage. CSS helps designers make websites attractive with colors, layouts, animations and responsive designs. JavaScript adds functionality and makes websites interactive.
 
-Learning these technologies can open many career opportunities.`
+Learning these technologies opens many career opportunities. A beginner can start creating simple websites and gradually build advanced web applications. With practice and creativity, anyone can become a successful web developer.
+
+Responsive design is also an important part of web development. Modern websites must work smoothly on mobile phones, tablets and computers. Using CSS Flexbox, Grid and JavaScript, developers can create powerful user-friendly websites.`
     },
 
     {
@@ -32,11 +34,11 @@ Learning these technologies can open many career opportunities.`
         description:
             "Discover beautiful destinations and unforgettable travel experiences.",
         content:
-`Traveling gives us an opportunity to explore beautiful places, experience different cultures and create unforgettable memories.
+`Traveling gives us a chance to explore beautiful places, discover new cultures, and create unforgettable memories. From peaceful beaches and majestic mountains to historic cities and natural wonders, every destination has something special to offer.
 
-Beautiful mountains, peaceful beaches, historical monuments and modern cities attract millions of travelers every year.
+Some amazing places to visit include Paris, Switzerland, Bali, Dubai, London, New York, Maldives, Kashmir, Manali, and Goa. These destinations are popular for their beautiful scenery, unique culture, delicious food, and exciting experiences.
 
-Travel can help us relax, learn new things and create unforgettable memories.`
+Whether you love nature, adventure, beaches, or historical places, traveling to new destinations can make your life more enjoyable and memorable.`
     },
 
     {
@@ -48,9 +50,13 @@ Travel can help us relax, learn new things and create unforgettable memories.`
         description:
             "Simple habits can help you build a healthier and happier life.",
         content:
-`A healthy lifestyle includes regular exercise, balanced nutrition, quality sleep and stress management.
+`A healthy lifestyle is important for keeping our body and mind active, strong, and happy. It starts with simple daily habits such as eating a balanced diet, drinking enough water, exercising regularly, and getting proper sleep.
 
-Simple daily habits such as drinking enough water, eating nutritious food and exercising regularly can improve physical and mental health.`
+Regular physical activity helps improve fitness, energy levels, and overall well-being. Eating fresh fruits, vegetables, whole grains, and nutritious foods can provide the body with essential nutrients. It is also important to limit unhealthy foods and maintain a balanced routine.
+
+Along with physical health, taking care of mental health is equally important. Spending time with family and friends, getting enough rest, managing stress, and taking breaks from busy routines can help maintain a positive mindset.
+
+A healthy lifestyle does not require major changes overnight. Small and consistent habits can make a big difference over time and help us live a healthier, happier, and more productive life.`
     },
 
     {
@@ -62,11 +68,15 @@ Simple daily habits such as drinking enough water, eating nutritious food and ex
         description:
             "Learn how JavaScript makes websites interactive and dynamic.",
         content:
-`JavaScript is one of the most important technologies used in modern web development.
+`JavaScript is a powerful and popular programming language used to make websites interactive and dynamic. It works with HTML and CSS to create modern and user-friendly web pages. HTML provides the structure, CSS handles the design, and JavaScript adds functionality.
 
-It allows developers to create interactive forms, animations, sliders, popups and menus.
+With JavaScript, developers can create features such as buttons, forms, animations, image sliders, pop-ups, menus, and dynamic content. It also provides important concepts like variables, functions, arrays, objects, loops, conditions, and events.
 
-Learning JavaScript after HTML and CSS helps developers build powerful web applications.`
+JavaScript can interact with the DOM (Document Object Model), allowing developers to change webpage content and styles without reloading the page. It can also communicate with APIs to retrieve and display data from external services.
+
+Today, JavaScript is used not only for front-end development but also for backend development through Node.js. Popular technologies such as React, Angular, and Vue.js are also built around JavaScript.
+
+Overall, learning JavaScript is an important step toward becoming a skilled web developer. With practice and real-world projects, JavaScript can help you create interactive, responsive, and professional web applications.`
     },
 
     {
@@ -78,11 +88,13 @@ Learning JavaScript after HTML and CSS helps developers build powerful web appli
         description:
             "Learn how to create websites that work perfectly on all screen sizes.",
         content:
-`Responsive web design allows websites to automatically adjust to different screen sizes.
+`Responsive web design is the process of creating websites that automatically adjust to different screen sizes such as mobile phones, tablets, laptops, and desktop computers. A responsive website should remain easy to read and use on every device.
 
-CSS Flexbox, CSS Grid and Media Queries are important tools for creating responsive layouts.
+CSS Flexbox and Grid are useful for creating flexible layouts, while Media Queries allow developers to change styles for different screen widths. Images should also be flexible so they do not overflow their containers on smaller screens.
 
-A responsive website should work smoothly on mobile phones, tablets and desktop computers.`
+A mobile-first approach can make responsive design easier because the layout is first designed for small screens and then enhanced for larger screens. Navigation menus, buttons, text sizes, spacing, and cards should all be tested on multiple screen sizes.
+
+Good responsive design improves user experience and makes a website look professional across devices. Testing the website regularly on both mobile and desktop helps find layout problems before deployment.`
     },
 
     {
@@ -94,9 +106,13 @@ A responsive website should work smoothly on mobile phones, tablets and desktop 
         description:
             "Artificial Intelligence is transforming many industries.",
         content:
-`Artificial Intelligence is transforming healthcare, education, finance, transportation and many other industries.
+`Artificial Intelligence (AI) is changing the way we live, work, and learn. AI-powered tools can help people solve problems, automate tasks, and make faster decisions.
 
-AI-powered tools can help people complete tasks faster and solve complex problems more efficiently.`
+In the future, AI is expected to become more useful in areas such as education, healthcare, business, transportation, and communication. Smart systems may help students learn better, assist doctors, and make everyday tasks easier.
+
+However, AI should be developed and used responsibly. Privacy, security, and human control will remain important as AI technology continues to grow.
+
+The future of AI is full of possibilities. With responsible development and human creativity, AI can become a powerful technology that improves our daily lives.`
     },
 
     {
@@ -108,9 +124,13 @@ AI-powered tools can help people complete tasks faster and solve complex problem
         description:
             "Explore the latest innovations, gadgets, software and digital solutions.",
         content:
-`Technology is changing rapidly. Artificial intelligence, cloud computing, robotics and modern software are creating exciting opportunities.
+`Technology is developing rapidly and introducing new ways to work, communicate, and solve everyday problems. Some of the latest technology trends include Artificial Intelligence (AI), Machine Learning, cloud computing, cybersecurity, Internet of Things (IoT), and automation.
 
-Learning about new technology helps students, professionals and businesses stay updated.`
+Artificial Intelligence is becoming more useful in areas such as education, healthcare, business, and content creation. Cloud computing allows people and organizations to store and access data online, while IoT connects smart devices to share information and perform tasks automatically.
+
+Another important trend is cybersecurity, as protecting personal and business data has become increasingly important. Technologies such as robotics, virtual reality, and advanced mobile applications are also creating new opportunities.
+
+Overall, the latest technology trends are making digital experiences smarter, faster, and more connected, while creating exciting possibilities for the future.`
     },
 
     {
@@ -122,11 +142,13 @@ Learning about new technology helps students, professionals and businesses stay 
         description:
             "Learn HTML, CSS and JavaScript to create modern websites.",
         content:
-`Web development starts with HTML, CSS and JavaScript.
+`Web development is the process of creating and maintaining websites and web applications. It is a valuable skill for anyone interested in technology and programming. The basic technologies used in web development are HTML, CSS, and JavaScript.
 
-HTML provides structure, CSS provides design and JavaScript provides interaction.
+HTML is used to create the structure of a webpage, CSS is used for styling and layout, and JavaScript adds interactivity and functionality. Beginners can start by learning these three technologies and practicing with small projects such as personal websites, portfolios, blogs, and simple web applications.
 
-By learning these technologies, beginners can create responsive and interactive websites.`
+As you gain experience, you can explore responsive design, APIs, databases, and popular frameworks such as React. Regular practice and building real-world projects are excellent ways to improve your skills.
+
+Overall, learning web development can help you create creative, interactive, and professional websites while opening many opportunities in the technology field.`
     },
 
     {
@@ -138,9 +160,11 @@ By learning these technologies, beginners can create responsive and interactive 
         description:
             "Discover amazing destinations around the world.",
         content:
-`The world is full of beautiful destinations. From peaceful beaches to impressive mountains and historical cities, every destination offers something special.
+`The world is full of beautiful places that offer breathtaking views, unique cultures, and unforgettable experiences. From the snow-covered mountains of Switzerland to the peaceful beaches of the Maldives, every destination has something special to explore.
 
-Exploring new places gives travelers unforgettable experiences.`
+Famous places such as Paris, Bali, Dubai, Switzerland, and the Andaman Islands attract travelers with their natural beauty, architecture, history, and exciting activities. Visiting different destinations also gives people the opportunity to experience new cultures, taste different foods, and create wonderful memories.
+
+Traveling to beautiful places can be a great way to relax, discover nature, and learn about the world. With proper planning, even a short trip can become a memorable adventure.`
     },
 
     {
@@ -152,9 +176,11 @@ Exploring new places gives travelers unforgettable experiences.`
         description:
             "Small habits and positive thinking can improve everyday life.",
         content:
-`Improving your daily life starts with simple habits.
+`Improving your daily life starts with small and positive habits. A good routine can help you stay organized, focused, and productive throughout the day. Start by planning your tasks, setting simple goals, and managing your time effectively.
 
-Good planning, regular exercise, positive thinking, healthy eating and proper time management can make everyday life more productive and enjoyable.`
+Taking regular breaks, staying physically active, eating healthy food, and getting enough sleep can help maintain your energy. It is also important to spend some time learning new things, enjoying your hobbies, and connecting with family and friends.
+
+Avoiding unnecessary distractions and maintaining a positive mindset can make everyday activities more enjoyable. By making small improvements consistently, you can become more productive, confident, and satisfied with your daily life.`
     },
 
     {
@@ -166,11 +192,11 @@ Good planning, regular exercise, positive thinking, healthy eating and proper ti
         description:
             "Continuous learning helps people grow professionally and personally.",
         content:
-`Learning new skills helps people become more confident and successful.
+`Learning new skills is an important part of personal and professional growth. Skills help us improve our knowledge, solve problems, and handle different situations with greater confidence. Whether it is communication, computer skills, creativity, or time management, every useful skill can provide new opportunities.
 
-Education and continuous learning are important for personal and professional growth.
+Learning does not always have to happen in a classroom. People can learn through online courses, books, practice, videos, and real-life experiences.
 
-Developing useful skills can create better career opportunities and help people adapt to a changing world.`
+By regularly learning and improving new skills, we can become more capable, independent, and prepared for the future.`
     },
 
     {
@@ -182,9 +208,13 @@ Developing useful skills can create better career opportunities and help people 
         description:
             "Learn useful business ideas and strategies for success.",
         content:
-`Successful businesses need good planning, marketing, customer service and innovation.
+`Business growth requires proper planning, consistent effort, and a clear understanding of customer needs. A business can grow by improving its products or services, providing excellent customer support, and building a strong brand presence.
 
-Understanding customers, improving products and using effective marketing strategies can help businesses grow.`
+Using digital marketing, social media, and online platforms can help businesses reach a larger audience. Understanding market trends and customer feedback can also help companies make better decisions and develop new opportunities.
+
+Another important strategy is to manage finances carefully, build a skilled team, and focus on long-term customer relationships. Businesses should also be willing to adapt to changing technology and market conditions.
+
+By combining good planning, innovation, effective marketing, and customer satisfaction, businesses can achieve sustainable growth and build a strong position in the market.`
     },
 
     {
@@ -196,9 +226,11 @@ Understanding customers, improving products and using effective marketing strate
         description:
             "Build healthy habits for a better lifestyle.",
         content:
-`Healthy eating, regular exercise, proper sleep and stress management are important parts of a healthy lifestyle.
+`A healthy lifestyle helps improve both physical and mental well-being. It starts with eating a balanced diet that includes fruits, vegetables, whole grains, and nutritious foods. Drinking enough water and limiting excessive junk food and sugary drinks can also support overall health.
 
-Making small improvements every day can help you live a healthier and happier life.`
+Regular physical activity and exercise help keep the body active and strong. Getting enough quality sleep is equally important because it allows the body and mind to recover. Managing stress through relaxation, hobbies, or spending time with loved ones can also contribute to a healthier lifestyle.
+
+Small, consistent habits can make a big difference over time. By maintaining a balanced diet, staying active, sleeping well, and taking care of mental well-being, you can build a healthier and more energetic life.`
     }
 
 ];
@@ -241,6 +273,7 @@ function fixImagePath(image) {
 
     let path = String(image).trim().replace(/\\/g, "/");
 
+    // Keep valid online/data URLs unchanged.
     if (
         path.startsWith("http://") ||
         path.startsWith("https://") ||
@@ -249,9 +282,12 @@ function fixImagePath(image) {
         return path;
     }
 
+    // Remove local relative prefixes.
     path = path.replace(/^(\.\.\/)+/, "");
     path = path.replace(/^(\.\/)+/, "");
 
+    // Convert old Windows/local paths such as
+    // E:/project1/image/blog19.jpg -> image/blog19.jpg
     const lower = path.toLowerCase();
     const imageIndex = lower.lastIndexOf("/image/");
 
@@ -259,11 +295,12 @@ function fixImagePath(image) {
         return path.substring(imageIndex + 1);
     }
 
+    // Normalize accidental plural folder name.
     if (lower.startsWith("images/")) {
         return "image/" + path.substring(7);
     }
 
-
+    // A remaining Windows drive path cannot work on GitHub Pages.
     if (/^[a-zA-Z]:\//.test(path)) {
         const fileName = path.split("/").pop();
         return fileName ? "image/" + fileName : "image/blog1.jpg";
@@ -470,7 +507,7 @@ function getArticles() {
     const deletedIds =
         new Set(getDeletedArticleIds());
 
-
+   
     defaultArticles.forEach(defaultArticle => {
 
         const id = String(defaultArticle.id);
@@ -502,7 +539,7 @@ function getArticles() {
             defaultArticle.content || defaultArticle.description || ""
         ).trim();
 
-        
+       
         const contentLooksOld =
             !savedContent ||
             savedContent === savedDescription ||
@@ -518,9 +555,9 @@ function getArticles() {
             date: saved.date || defaultArticle.date,
             image: fixImagePath(saved.image || defaultArticle.image),
             description: savedDescription,
-            content: contentLooksOld
+            content: shouldRepairOldLiveData
                 ? defaultContent
-                : savedContent
+                : (contentLooksOld ? defaultContent : savedContent)
         };
     });
 
