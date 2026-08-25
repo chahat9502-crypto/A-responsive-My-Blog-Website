@@ -2338,7 +2338,6 @@ section h2::after {
         font-size: 23px;
     }
 }
-
 .menu-toggle[aria-expanded="true"] {
     background: #eef6ff;
 }
