@@ -237,10 +237,40 @@ function fixImagePath(image) {
         return "image/blog1.jpg";
     }
 
-    let path = String(image).trim();
+    let path = String(image).trim().replace(/\\/g, "/");
 
+    // Keep valid online/data URLs unchanged.
+    if (
+        path.startsWith("http://") ||
+        path.startsWith("https://") ||
+        path.startsWith("data:image/")
+    ) {
+        return path;
+    }
+
+    // Remove local relative prefixes.
     path = path.replace(/^(\.\.\/)+/, "");
     path = path.replace(/^(\.\/)+/, "");
+
+    // Convert old Windows/local paths such as
+    // E:/project1/image/blog19.jpg -> image/blog19.jpg
+    const lower = path.toLowerCase();
+    const imageIndex = lower.lastIndexOf("/image/");
+
+    if (imageIndex !== -1) {
+        return path.substring(imageIndex + 1);
+    }
+
+    // Normalize accidental plural folder name.
+    if (lower.startsWith("images/")) {
+        return "image/" + path.substring(7);
+    }
+
+    // A remaining Windows drive path cannot work on GitHub Pages.
+    if (/^[a-zA-Z]:\//.test(path)) {
+        const fileName = path.split("/").pop();
+        return fileName ? "image/" + fileName : "image/blog1.jpg";
+    }
 
     return path || "image/blog1.jpg";
 }
@@ -439,39 +469,56 @@ function getArticles() {
     const deletedIds =
         new Set(getDeletedArticleIds());
 
-    const existingIds =
-        new Set(
-            articles.map(article =>
-                String(article.id)
-            )
-        );
-
-
+ 
     defaultArticles.forEach(defaultArticle => {
 
-        const id =
-            String(defaultArticle.id);
+        const id = String(defaultArticle.id);
 
-        if (
-            !existingIds.has(id) &&
-            !deletedIds.has(id)
-        ) {
-
-            articles.push({
-                ...defaultArticle
-            });
+        if (deletedIds.has(id)) {
+            return;
         }
+
+        const index = articles.findIndex(article =>
+            article && String(article.id) === id
+        );
+
+        if (index === -1) {
+            articles.push({ ...defaultArticle });
+            return;
+        }
+
+        const saved = articles[index] || {};
+
+        articles[index] = {
+            ...defaultArticle,
+            ...saved,
+            id: defaultArticle.id,
+            title: String(saved.title || defaultArticle.title),
+            category: String(saved.category || defaultArticle.category),
+            date: saved.date || defaultArticle.date,
+            image: fixImagePath(saved.image || defaultArticle.image),
+            description: String(
+                saved.description || defaultArticle.description || ""
+            ).trim(),
+            content: String(
+                saved.content || defaultArticle.content || saved.description || ""
+            ).trim()
+        };
     });
 
-
-    articles = articles.filter(article =>
-        article &&
-        article.id &&
-        !deletedIds.has(
-            String(article.id)
+    articles = articles
+        .filter(article =>
+            article &&
+            article.id &&
+            !deletedIds.has(String(article.id))
         )
-    );
-
+        .map(article => ({
+            ...article,
+            image: fixImagePath(article.image),
+            content: String(
+                article.content || article.description || ""
+            ).trim()
+        }));
 
     saveArticles(articles);
 
@@ -796,17 +843,123 @@ function setupDarkMode() {
 
 function updateDarkIcon(button, isDark) {
 
-    const icon =
-        button.querySelector("i");
+    const icon = button.querySelector("i");
 
-    if (!icon) {
+    if (icon) {
+        icon.className =
+            isDark
+                ? "fa-solid fa-sun"
+                : "fa-solid fa-moon";
+    }
+
+    const text = button.querySelector("#darkText");
+
+    if (text) {
+        text.textContent =
+            isDark
+                ? "Light"
+                : "Dark";
+    }
+}
+
+function setupMobileMenu() {
+
+    const navbar = document.querySelector(".navbar");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!navbar || !navLinks) {
         return;
     }
 
-    icon.className =
-        isDark
-            ? "fa-solid fa-sun"
-            : "fa-solid fa-moon";
+    let menuButton = navbar.querySelector(".menu-toggle");
+
+    // Some inner pages did not contain a hamburger button.
+    // Create one automatically so the same JS fixes every page.
+    if (!menuButton) {
+        menuButton = document.createElement("button");
+        menuButton.type = "button";
+        menuButton.className = "menu-toggle";
+        menuButton.setAttribute("aria-label", "Open Menu");
+        menuButton.innerHTML = '<i class="fa-solid fa-bars"></i>';
+
+        const navIcons = navbar.querySelector(".nav-icons");
+
+        if (navIcons) {
+            navIcons.appendChild(menuButton);
+        } else {
+            navbar.appendChild(menuButton);
+        }
+    }
+
+    if (menuButton.dataset.menuReady === "true") {
+        return;
+    }
+
+    menuButton.dataset.menuReady = "true";
+    menuButton.setAttribute("aria-expanded", "false");
+
+    const setMenuState = open => {
+        navLinks.classList.toggle("active", open);
+        menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.setAttribute(
+            "aria-label",
+            open ? "Close Menu" : "Open Menu"
+        );
+
+        const icon = menuButton.querySelector("i");
+        if (icon) {
+            icon.className =
+                open
+                    ? "fa-solid fa-xmark"
+                    : "fa-solid fa-bars";
+        }
+    };
+
+    menuButton.addEventListener("click", function () {
+        setMenuState(!navLinks.classList.contains("active"));
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function () {
+            setMenuState(false);
+        });
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+            setMenuState(false);
+        }
+    });
+}
+
+function setupAdminDashboardPage() {
+
+    const tableBody = document.getElementById("articlesTableBody");
+
+    if (!tableBody) {
+        return;
+    }
+
+    const loggedIn = localStorage.getItem(ADMIN_LOGIN_KEY);
+
+    if (loggedIn === "false") {
+        window.location.href = "admin-login.html";
+        return;
+    }
+
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (logoutBtn && logoutBtn.dataset.logoutReady !== "true") {
+        logoutBtn.dataset.logoutReady = "true";
+        logoutBtn.addEventListener("click", function () {
+            const confirmed = confirm("Are you sure you want to logout?");
+            if (confirmed) {
+                adminLogout();
+            }
+        });
+    }
+
+    renderAdminDashboard();
 }
 
 function createArticleCard(article) {
@@ -1310,7 +1463,7 @@ function showArticleError(
             </p>
 
             <a
-                href="web.html"
+                href="index.html"
                 class="btn"
             >
                 Back Home
@@ -2538,11 +2691,20 @@ function setupAdminLogin() {
     );
 }
 
+
+function normalizeHomeLinks() {
+    document.querySelectorAll('a[href="web.html"]').forEach(function (link) {
+        link.setAttribute("href", "index.html");
+    });
+}
+
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+        normalizeHomeLinks();
         getArticles();
         setupDarkMode();
+        setupMobileMenu();
         setupArticleForm();
         setupAdminLogin();
         displayHomeArticles();
@@ -2552,8 +2714,6 @@ document.addEventListener(
         setupLoadMore();
         setupNewsletter();
         loadArticlePage();
-
-        renderAdminDashboard();
-
+        setupAdminDashboardPage();
     }
 );
