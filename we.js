@@ -4,7 +4,7 @@ const EDIT_KEY = "editArticleId";
 const DELETED_KEY = "myBlogDeletedArticleIds";
 const DARK_MODE_KEY = "myBlogDarkMode";
 const DATA_VERSION_KEY = "myBlogDataVersion";
-const CURRENT_DATA_VERSION = "2026-08-25-full-content-v3";
+const CURRENT_DATA_VERSION = "2026-08-25-healthy-image-loadmore-v4";
 const defaultArticles = [
 
     {
@@ -222,7 +222,7 @@ By combining good planning, innovation, effective marketing, and customer satisf
         title: "Healthy Lifestyle Guide",
         category: "Health",
         date: "7 September 2026",
-        image: "image/blog18.jpg",
+        image: "image/blog21.jpg",
         description:
             "Build healthy habits for a better lifestyle.",
         content:
@@ -232,16 +232,6 @@ Regular physical activity and exercise help keep the body active and strong. Get
 
 Small, consistent habits can make a big difference over time. By maintaining a balanced diet, staying active, sleeping well, and taking care of mental well-being, you can build a healthier and more energetic life.`
     }
-    {
-    id: "healthy-lifestyle-guide",
-    title: "Healthy Lifestyle Guide",
-    category: "Health",
-    image: "image/blog21.jpg",
-    description: "A healthy lifestyle includes eating nutritious food, exercising regularly, getting enough sleep, drinking plenty of water, and managing stress. Good daily habits help keep your body and mind healthy, active, and happy.",
-    content: `A healthy lifestyle is important for keeping our body and mind fit. It includes eating nutritious food, exercising regularly, drinking enough water, and getting proper sleep. Fresh fruits, vegetables, whole grains, and balanced meals provide the energy our body needs.
-Regular exercise such as walking, cycling, or yoga improves fitness and reduces stress. Getting 7–8 hours of sleep helps the body recover and keeps the mind fresh. We should also avoid too much junk food, smoking, and other unhealthy habits.
-By following simple healthy habits every day, we can stay active, energetic, and enjoy a better quality of life.`,
-}
 
 ];
 
@@ -283,7 +273,6 @@ function fixImagePath(image) {
 
     let path = String(image).trim().replace(/\\/g, "/");
 
-    // Keep valid online/data URLs unchanged.
     if (
         path.startsWith("http://") ||
         path.startsWith("https://") ||
@@ -292,12 +281,9 @@ function fixImagePath(image) {
         return path;
     }
 
-    // Remove local relative prefixes.
     path = path.replace(/^(\.\.\/)+/, "");
     path = path.replace(/^(\.\/)+/, "");
 
-    // Convert old Windows/local paths such as
-    // E:/project1/image/blog19.jpg -> image/blog19.jpg
     const lower = path.toLowerCase();
     const imageIndex = lower.lastIndexOf("/image/");
 
@@ -305,12 +291,11 @@ function fixImagePath(image) {
         return path.substring(imageIndex + 1);
     }
 
-    // Normalize accidental plural folder name.
+ 
     if (lower.startsWith("images/")) {
         return "image/" + path.substring(7);
     }
 
-    // A remaining Windows drive path cannot work on GitHub Pages.
     if (/^[a-zA-Z]:\//.test(path)) {
         const fileName = path.split("/").pop();
         return fileName ? "image/" + fileName : "image/blog1.jpg";
@@ -563,7 +548,11 @@ function getArticles() {
             title: String(saved.title || defaultArticle.title),
             category: String(saved.category || defaultArticle.category),
             date: saved.date || defaultArticle.date,
-            image: fixImagePath(saved.image || defaultArticle.image),
+            image: fixImagePath(
+                id === "healthy-life"
+                    ? defaultArticle.image
+                    : (saved.image || defaultArticle.image)
+            ),
             description: savedDescription,
             content: shouldRepairOldLiveData
                 ? defaultContent
@@ -1662,127 +1651,124 @@ function setupLoadMore() {
             "loadMore"
         );
 
-
-    if (!loadMore) {
-        return;
-    }
-
-
     const container =
         document.querySelector(
             ".blogs .blog-container"
         );
 
-
-    if (!container) {
+    if (!loadMore || !container) {
         return;
     }
 
+    const pageSize = 8;
 
-    const cards =
-        Array.from(
+    function getCards() {
+        return Array.from(
             container.querySelectorAll(
                 ".blog-card"
             )
         );
-
-
-    const pageSize = 8;
-
-
-    let visibleCount =
-        Number(
-            loadMore.dataset.visibleCount ||
-            pageSize
-        );
-
-
-    if (
-        !Number.isFinite(
-            visibleCount
-        )
-    ) {
-
-        visibleCount =
-            pageSize;
     }
 
+    function getVisibleCount() {
 
-    cards.forEach(
-        (card, index) => {
-
-            card.style.display =
-                index < visibleCount
-                    ? ""
-                    : "none";
-        }
-    );
-
-
-    if (
-        cards.length <= pageSize
-    ) {
-
-        loadMore.style.display =
-            "none";
-
-        return;
-    }
-
-
-    loadMore.style.display =
-        "block";
-
-
-    if (
-        loadMore.dataset.loadMoreReady ===
-        "true"
-    ) {
-        return;
-    }
-
-
-    loadMore.dataset.loadMoreReady =
-        "true";
-
-
-    loadMore.addEventListener(
-        "click",
-        function () {
-
-            visibleCount +=
-                pageSize;
-
-
-            loadMore.dataset.visibleCount =
-                String(visibleCount);
-
-
-            cards.forEach(
-                (card, index) => {
-
-                    if (
-                        index < visibleCount
-                    ) {
-
-                        card.style.display =
-                            "";
-                    }
-                }
+        const savedCount =
+            Number(
+                loadMore.dataset.visibleCount
             );
 
-
-            if (
-                visibleCount >=
-                cards.length
-            ) {
-
-                loadMore.style.display =
-                    "none";
-            }
+        if (
+            Number.isFinite(savedCount) &&
+            savedCount > 0
+        ) {
+            return savedCount;
         }
-    );
+
+        return pageSize;
+    }
+
+    function applyLoadMoreState() {
+
+        const cards =
+            getCards();
+
+        let visibleCount =
+            getVisibleCount();
+
+        if (
+            visibleCount >
+            cards.length
+        ) {
+            visibleCount =
+                cards.length;
+        }
+
+        cards.forEach(
+            (card, index) => {
+
+                card.style.display =
+                    index < visibleCount
+                        ? ""
+                        : "none";
+            }
+        );
+
+        loadMore.dataset.visibleCount =
+            String(visibleCount);
+
+        loadMore.style.display =
+            (
+                cards.length > pageSize &&
+                visibleCount < cards.length
+            )
+                ? "block"
+                : "none";
+    }
+
+    // Every fresh home render starts with 8 articles.
+    if (
+        !loadMore.dataset.visibleCount
+    ) {
+        loadMore.dataset.visibleCount =
+            String(pageSize);
+    }
+
+    if (
+        loadMore.dataset.loadMoreReady !==
+        "true"
+    ) {
+
+        loadMore.dataset.loadMoreReady =
+            "true";
+
+        loadMore.addEventListener(
+            "click",
+            function () {
+
+                const cards =
+                    getCards();
+
+                let visibleCount =
+                    getVisibleCount();
+
+                visibleCount =
+                    Math.min(
+                        visibleCount +
+                        pageSize,
+                        cards.length
+                    );
+
+                loadMore.dataset.visibleCount =
+                    String(visibleCount);
+
+                applyLoadMoreState();
+            }
+        );
+    }
+
+    applyLoadMoreState();
 }
+
 function setupNewsletter() {
 
     const form =
