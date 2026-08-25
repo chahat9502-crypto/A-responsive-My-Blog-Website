@@ -238,11 +238,9 @@ Small, consistent habits can make a big difference over time. By maintaining a b
     category: "Health",
     image: "image/blog21.jpg",
     description: "A healthy lifestyle includes eating nutritious food, exercising regularly, getting enough sleep, drinking plenty of water, and managing stress. Good daily habits help keep your body and mind healthy, active, and happy.",
-    content: "A healthy lifestyle is important for keeping our body and mind fit. It includes eating nutritious food, exercising regularly, drinking enough water, and getting proper sleep. Fresh fruits, vegetables, whole grains, and balanced meals provide the energy our body needs.
-
+    content: `A healthy lifestyle is important for keeping our body and mind fit. It includes eating nutritious food, exercising regularly, drinking enough water, and getting proper sleep. Fresh fruits, vegetables, whole grains, and balanced meals provide the energy our body needs.
 Regular exercise such as walking, cycling, or yoga improves fitness and reduces stress. Getting 7–8 hours of sleep helps the body recover and keeps the mind fresh. We should also avoid too much junk food, smoking, and other unhealthy habits.
-
-By following simple healthy habits every day, we can stay active, energetic, and enjoy a better quality of life."
+By following simple healthy habits every day, we can stay active, energetic, and enjoy a better quality of life.`,
 }
 
 ];
