@@ -3,6 +3,8 @@ const ADMIN_LOGIN_KEY = "myBlogAdminLoggedIn";
 const EDIT_KEY = "editArticleId";
 const DELETED_KEY = "myBlogDeletedArticleIds";
 const DARK_MODE_KEY = "myBlogDarkMode";
+const DATA_VERSION_KEY = "myBlogDataVersion";
+const CURRENT_DATA_VERSION = "2026-08-25-readmore-v2";
 const defaultArticles = [
 
     {
@@ -239,7 +241,6 @@ function fixImagePath(image) {
 
     let path = String(image).trim().replace(/\\/g, "/");
 
-    // Keep valid online/data URLs unchanged.
     if (
         path.startsWith("http://") ||
         path.startsWith("https://") ||
@@ -248,12 +249,9 @@ function fixImagePath(image) {
         return path;
     }
 
-    // Remove local relative prefixes.
     path = path.replace(/^(\.\.\/)+/, "");
     path = path.replace(/^(\.\/)+/, "");
 
-    // Convert old Windows/local paths such as
-    // E:/project1/image/blog19.jpg -> image/blog19.jpg
     const lower = path.toLowerCase();
     const imageIndex = lower.lastIndexOf("/image/");
 
@@ -261,12 +259,11 @@ function fixImagePath(image) {
         return path.substring(imageIndex + 1);
     }
 
-    // Normalize accidental plural folder name.
     if (lower.startsWith("images/")) {
         return "image/" + path.substring(7);
     }
 
-    // A remaining Windows drive path cannot work on GitHub Pages.
+
     if (/^[a-zA-Z]:\//.test(path)) {
         const fileName = path.split("/").pop();
         return fileName ? "image/" + fileName : "image/blog1.jpg";
@@ -466,10 +463,14 @@ function getArticles() {
 
     let articles = getSavedArticles();
 
+    const previousDataVersion = localStorage.getItem(DATA_VERSION_KEY);
+    const shouldRepairOldLiveData =
+        previousDataVersion !== CURRENT_DATA_VERSION;
+
     const deletedIds =
         new Set(getDeletedArticleIds());
 
- 
+
     defaultArticles.forEach(defaultArticle => {
 
         const id = String(defaultArticle.id);
@@ -489,6 +490,25 @@ function getArticles() {
 
         const saved = articles[index] || {};
 
+        const savedDescription = String(
+            saved.description || defaultArticle.description || ""
+        ).trim();
+
+        const savedContent = String(
+            saved.content || ""
+        ).trim();
+
+        const defaultContent = String(
+            defaultArticle.content || defaultArticle.description || ""
+        ).trim();
+
+        
+        const contentLooksOld =
+            !savedContent ||
+            savedContent === savedDescription ||
+            savedContent === String(defaultArticle.description || "").trim() ||
+            savedContent.length <= savedDescription.length + 20;
+
         articles[index] = {
             ...defaultArticle,
             ...saved,
@@ -497,14 +517,19 @@ function getArticles() {
             category: String(saved.category || defaultArticle.category),
             date: saved.date || defaultArticle.date,
             image: fixImagePath(saved.image || defaultArticle.image),
-            description: String(
-                saved.description || defaultArticle.description || ""
-            ).trim(),
-            content: String(
-                saved.content || defaultArticle.content || saved.description || ""
-            ).trim()
+            description: savedDescription,
+            content: contentLooksOld
+                ? defaultContent
+                : savedContent
         };
     });
+
+    if (shouldRepairOldLiveData) {
+        localStorage.setItem(
+            DATA_VERSION_KEY,
+            CURRENT_DATA_VERSION
+        );
+    }
 
     articles = articles
         .filter(article =>
