@@ -2338,6 +2338,8 @@ section h2::after {
         font-size: 23px;
     }
 }
+
+/* FIX: Mobile menu button open state */
 .menu-toggle[aria-expanded="true"] {
     background: #eef6ff;
 }
